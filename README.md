@@ -11,3 +11,46 @@
 
 
 Пример запуска: node index.js table.csv
+
+
+const showInfo = (dataContent) => {
+  function baseData(arr) {
+    return arr.map((element) => ({
+      company: element[0].trim(),
+      staff: element[1].trim(),
+      Town: element[2].trim(),
+      job: element[3].trim(),
+      vacantion: element[4].trim(),
+      pay: element[5].trim(),
+      learn: element[6].trim(),
+      treb: element[7].trim(),
+    }));
+  }
+
+  const makeDataArray = (data) => {
+    const partsData = data.split('\r\n').slice(1).map((element) => {
+      const a = element.split(';');
+      return a.filter((b) => b !== '');
+    });
+    for (let index = 0; index < partsData.length; index += 1) {
+      const element = partsData[index];
+      if (element.length === 0) {
+        partsData.splice(index);
+      }
+    }
+    // console.log(partsData);
+    return baseData(partsData);
+  };
+
+  const data = makeDataArray(dataContent);
+
+  // #1
+  console.log(`Count: ${data.length}`);
+
+  const listTowns = data.map((T) => T.Town + '');
+  const TownSt = listTowns.toString();
+  console.log(`Cities: ${TownSt} `);
+
+  // return console.log(data);
+};
+export default showInfo;
